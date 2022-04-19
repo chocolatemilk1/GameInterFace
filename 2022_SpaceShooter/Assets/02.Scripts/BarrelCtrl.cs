@@ -7,6 +7,9 @@ public class BarrelCtrl : MonoBehaviour
     public GameObject expEffect;
 
     public Texture[] textures;
+
+    public float radius = 10.0f;
+
     private new MeshRenderer renderer;
 
     private Transform tr;
@@ -43,9 +46,28 @@ public class BarrelCtrl : MonoBehaviour
 
         Destroy(exp, 5.0f);
 
-        rb.mass = 1.0f;
-        rb.AddForce(Vector3.up * 1500.0f);
+        //rb.mass = 1.0f;
+        //rb.AddForce(Vector3.up * 1500.0f);
+
+        IndirectDamage(tr.position);
 
         Destroy(gameObject, 3.0f);
+    }
+
+        //Collider[] colls = new Collider[10];
+        
+    void IndirectDamage(Vector3 pos)
+    {
+        Collider[] colls = Physics.OverlapSphere(pos, radius, 1 << 3);
+
+        //Physics.OverlapSphereNonAlloc(pos, radius, colls, 1 << 3);
+
+        foreach (var coll in colls)
+        {
+            rb = coll.GetComponent<Rigidbody>();
+            rb.mass = 1.0f;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.AddExplosionForce(1500.0f, pos, radius, 1200.0f);
+        }
     }
 }
