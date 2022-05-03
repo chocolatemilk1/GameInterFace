@@ -17,6 +17,10 @@ public class BarrelCtrl : MonoBehaviour
 
     private int hitCount = 0;
 
+    AudioSource audioSource;
+
+    public AudioClip BarrelExp;
+
     void Start()
     {
         tr = GetComponent<Transform>();
@@ -27,6 +31,8 @@ public class BarrelCtrl : MonoBehaviour
         int idx = Random.Range(0, textures.Length);
 
         renderer.material.mainTexture = textures[idx];
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,6 +42,8 @@ public class BarrelCtrl : MonoBehaviour
             if(++hitCount == 3)
             {
                 ExpBarrel();
+
+                audioSource.PlayOneShot(BarrelExp);
             }
         }
     }

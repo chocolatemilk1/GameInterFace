@@ -17,6 +17,6 @@ public class BulletCtrl : MonoBehaviour
 
     void Update()
     {
-        
+        Destroy(gameObject, 5f);
     }
 }
