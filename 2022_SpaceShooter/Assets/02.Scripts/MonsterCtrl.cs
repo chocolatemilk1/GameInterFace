@@ -26,8 +26,23 @@ public class MonsterCtrl : MonoBehaviour
     private readonly int hashTrace = Animator.StringToHash("IsTrace");
     private readonly int hashAttack = Animator.StringToHash("IsAttack");
     private readonly int hashHit = Animator.StringToHash("Hit");
+    private readonly int hashPlayerDie = Animator.StringToHash("PlayerDie");
+    private readonly int hashSpeed = Animator.StringToHash("Speed");
+    private readonly int hashDie = Animator.StringToHash("Die");
 
     private GameObject bloodEffect;
+
+    private int hp = 100;
+
+    private void OnEnable()
+    {
+        PlayerCtrl.OnPlayerDie -= this.OnPlayerDie;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCtrl.OnPlayerDie -= this.OnPlayerDie;
+    }
 
     void Start()
     {
@@ -52,6 +67,8 @@ public class MonsterCtrl : MonoBehaviour
         while (!isDie)
         {
             yield return new WaitForSeconds(0.3f);
+
+            if (state == State.DIE) yield break;
 
             float distance = Vector3.Distance(playerTr.position, monsterTr.position);
 
@@ -93,6 +110,10 @@ public class MonsterCtrl : MonoBehaviour
                     break;
 
                 case State.DIE:
+                    isDie = true;
+                    agent.isStopped = true;
+                    anim.SetTrigger(hashDie);
+                    GetComponent<CapsuleCollider>().enabled = false;
                     break;
             }
             yield return new WaitForSeconds(0.3f);
@@ -109,6 +130,12 @@ public class MonsterCtrl : MonoBehaviour
             Vector3 pos = collision.GetContact(0).point;
             Quaternion rot = Quaternion.LookRotation(-collision.GetContact(0).normal);
             ShowBloodEffect(pos, rot);
+
+            hp -= 10;
+            if(hp <= 0)
+            {
+                state = State.DIE;
+            }
         }
     }
 
@@ -131,5 +158,14 @@ public class MonsterCtrl : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, attackDist);
         }
+    }
+
+    void OnPlayerDie()
+    {
+        StopAllCoroutines();
+
+        agent.isStopped = true;
+        anim.SetFloat(hashSpeed, Random.Range(0.8f, 1.2f));
+        anim.SetTrigger(hashPlayerDie);
     }
 }

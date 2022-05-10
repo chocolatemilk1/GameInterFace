@@ -13,6 +13,11 @@ public class PlayerCtrl: MonoBehaviour
 
     private readonly float initHp = 100.0f;
     public float currHp;
+
+    public delegate void PlayerDieHandler();
+
+    public static event PlayerDieHandler OnPlayerDie;
+
     IEnumerator Start()
     {
         currHp = initHp;
@@ -87,6 +92,16 @@ public class PlayerCtrl: MonoBehaviour
 
     void PlayerDie()
     {
-        Debug.Log("Die!!!!!!!!!!!!");
+        Debug.Log("You Died");
+
+        /*GameObject[] monsters = GameObject.FindGameObjectsWithTag("MONSTER");
+
+        foreach(GameObject monster in monsters)
+        {
+            monster.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
+
+        }*/
+
+        OnPlayerDie();
     }
 }
