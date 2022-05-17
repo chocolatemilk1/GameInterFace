@@ -54,12 +54,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
-    <Analyzer Include="C:\Users\kw\Desktop\GameinterFace\2022_SpaceShooter\Assets\03.Prefabs\EffectExamples\Editor\PackageManagerAssembly\PackageManagerAssembly.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\02.Scripts\FollowCam.cs" />
     <Compile Include="Assets\03.Prefabs\EffectExamples\Shared\Scripts\ExtinguishableFire.cs" />
     <Compile Include="Assets\03.Prefabs\EffectExamples\Shared\Scripts\ParticleMenu.cs" />
+    <Compile Include="Assets\02.Scripts\MonsterCtrl.cs" />
     <Compile Include="Assets\03.Prefabs\EffectExamples\Shared\Scripts\DecalDestroyer.cs" />
     <Compile Include="Assets\03.Prefabs\EffectExamples\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\02.Scripts\BarrelCtrl.cs" />
@@ -71,7 +71,8 @@
     <Compile Include="Assets\02.Scripts\RemoveBullet.cs" />
     <Compile Include="Assets\02.Scripts\FireCtrl.cs" />
     <Compile Include="Assets\03.Prefabs\EffectExamples\Shared\Scripts\GunAim.cs" />
-    <Compile Include="Assets\02.Scripts\MonsterCtrl.cs" />
+    <Compile Include="Assets\02.Scripts\UITest\IMGUIDemo.cs" />
+    <Compile Include="Assets\02.Scripts\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\03.Prefabs\EffectExamples\Shared\Shaders\SurfaceShader_VC.shader" />
