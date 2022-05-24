@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl: MonoBehaviour
 {
@@ -13,13 +14,17 @@ public class PlayerCtrl: MonoBehaviour
 
     private readonly float initHp = 100.0f;
     public float currHp;
+    private Image hpBar;
 
     public delegate void PlayerDieHandler();
 
     public static event PlayerDieHandler OnPlayerDie;
 
+
     IEnumerator Start()
     {
+        hpBar = GameObject.FindGameObjectWithTag("HP_BAR")?.GetComponent<Image>();
+        
         currHp = initHp;
 
         tr = GetComponent<Transform>();
@@ -76,12 +81,14 @@ public class PlayerCtrl: MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if(currHp >= 0.0f && other.CompareTag("PUNCH"))
         {
             currHp -= 10.0f;
-            Debug.Log($"Player hp = {currHp / initHp}");
+            DisplayHealth();
+
+            //Debug.Log($"Player hp = {currHp / initHp}");
 
             if(currHp <= 0.0f)
             {
@@ -92,7 +99,7 @@ public class PlayerCtrl: MonoBehaviour
 
     void PlayerDie()
     {
-        Debug.Log("You Died");
+        //Debug.Log("You Died");
 
         /*GameObject[] monsters = GameObject.FindGameObjectsWithTag("MONSTER");
 
@@ -103,5 +110,12 @@ public class PlayerCtrl: MonoBehaviour
         }*/
 
         OnPlayerDie();
+
+        GameObject.Find("GameManager").GetComponent<GameManager>().IsGameOver = true;
+    }
+
+    void DisplayHealth()
+    {
+        hpBar.fillAmount = currHp / initHp;
     }
 }
