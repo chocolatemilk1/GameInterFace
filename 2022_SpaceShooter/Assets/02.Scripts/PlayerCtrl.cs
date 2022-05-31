@@ -99,19 +99,10 @@ public class PlayerCtrl: MonoBehaviour
 
     void PlayerDie()
     {
-        //Debug.Log("You Died");
-
-        /*GameObject[] monsters = GameObject.FindGameObjectsWithTag("MONSTER");
-
-        foreach(GameObject monster in monsters)
-        {
-            monster.SendMessage("OnPlayerDie", SendMessageOptions.DontRequireReceiver);
-
-        }*/
-
         OnPlayerDie();
 
-        GameObject.Find("GameManager").GetComponent<GameManager>().IsGameOver = true;
+        //GameObject.Find("GameManager").GetComponent<GameManager>().IsGameOver = true;
+        GameManager.instance.IsGameOver = true;
     }
 
     void DisplayHealth()
