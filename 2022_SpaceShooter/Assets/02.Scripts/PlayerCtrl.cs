@@ -35,6 +35,8 @@ public class PlayerCtrl: MonoBehaviour
         turnSpeed = 0.0f;
         yield return new WaitForSeconds(0.3f);
         turnSpeed = 210.0f;
+
+        //GameManager.instance.gameoverPanel.SetActive(false);
     }
 
     void Update()
@@ -93,6 +95,8 @@ public class PlayerCtrl: MonoBehaviour
             if(currHp <= 0.0f)
             {
                 PlayerDie();
+
+                GameManager.instance.gameoverPanel.SetActive(true);
             }
         }
     }

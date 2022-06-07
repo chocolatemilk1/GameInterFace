@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour
     public float createTime = 3.0f;
 
     private bool isGameOver;
+
+    public GameObject gameoverPanel;
 
     public bool IsGameOver
     {
@@ -112,5 +115,15 @@ public class GameManager : MonoBehaviour
         scoreText.text = $"<color=#00ff00>SCORE :</color> <color=#ff0000>{totScore:#,##0}</color>";
 
         PlayerPrefs.SetInt("TOT_SCORE", totScore);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

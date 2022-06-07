@@ -31,7 +31,7 @@ public class FireCtrl : MonoBehaviour
 
             if (Physics.Raycast(firePos.position, firePos.forward, out hit, 10.0f, 1 << 6))
             {
-                Debug.Log($"Hit={hit.transform.name}");
+                //Debug.Log($"Hit={hit.transform.name}");
 
                 hit.transform.GetComponent<MonsterCtrl>()?.OnDamage(hit.point, hit.normal);
             }
